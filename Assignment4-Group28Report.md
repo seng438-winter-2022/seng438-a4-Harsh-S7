@@ -8,7 +8,7 @@
 | Harshit Sharma | 30092470 |
 | Heidi Toews    | 30094995 |
 | Muhammad Khan  |          |
-| Shamis Ali     |          |
+| Shamis Ali     | 30096335 |
 
 # Introduction
 
