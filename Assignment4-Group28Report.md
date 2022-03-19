@@ -11,13 +11,70 @@
 | Shamis Ali     | 30096335 |
 
 # Introduction
-
+In this lab we learned about mutation testing and GUI testing. Mutation testing is injecting faults into the code to see how effective a test suite is. The more mutations a test suite is able to catch, the more effective it is. In this lab, we used mutation testing to evaluate and improve our test suites for the DataUtilities and Range classes. 
+GUI testing involves making sure that all of the functionality in a GUI is working correctly. We used Selenium to design a simple test suite for the Best Buy website. 
 
 # Analysis of 10 Mutants of the Range class 
+Mutant #1 - testLowerMin
+Mutation: Replace Equality Check with True 
+Location: line 241
+Analysis:
+In the method CombineIgnoreNaN(Range range1, Range range2), the if condition of range2==null && range2.isNaNRange() was changed to true. This mutation would have caused the program to try to combine 2 Range objects. By changing this to true, the method would return null even when range2 isn’t null. This means that the 2 arrays will not combine.
+Mutant #2 - combineWithNan
+Mutation: mutated return of Object value for org/jfree/data/Range::combineIgnoringNaN to ( if (x != null) null else throw new RuntimeException )
+Location: Line 256
+Analysis:In the method combineWithNan, it checks if the return return value of the object is equal to what was asked and if it is not null then it fails the test, thus killing the mutant
+Mutant #3 - testCombineIgnoringNaNMin
+Mutation: replaced call to org/jfree/data/Range::min with argument
+Location: Line 253 
+Analysis: In method CombineIgnoringNaN(Range range1, Range range2), the min function was replaced with some random argument (the argument is unknown). This mutation can likely cause the ranges to be combined incorrectly as the method no longer has the minimum of the 2 Range parameters, instead likely returning a fixed value. The TestCombineIgnoringNaNMin() method accounts for this by sending a Range object with NaN ranges as parameters, thus showing that the method doesn’t accurately return the lower bound of the combined range.
+Mutant #4 - constrainOutsideLowerRange
+Mutation: greater or equal to less than
+Location: Line 193
+Analysis: in the method constrain(double value), the >= sine was changed to <=. This would have caused the method to ignore that value may not be within the Range object and would have caused the method to return the value and not the range. This was caught by setting the value to 1 and calling the method as an instance of a range object with range of (2,6).
+Mutant #5 - intersectrangeFalse
+Mutation: less or equal sign to greater
+Location: Line 19
+Analysis: In the method intersects(int b0, int b1) the <= sign was replaced with >. This would cause the method to ignore if the lowerbound was actually higher. This was the exact scenario used to catch this mutation.
+Mutant #6 - testClosestValueInRange
+Mutation: Negated double local variable number 1
+Location: Line 188
+Analysis: In this method, the local variable which had been created had been negated by the mutations and this was killed by test, as the test ensured that the local value could not be negated as it is the return value
+Mutant #7 - testRangeExpandNegative
+Mutation: removed call to org/jfree/data/Range::getLength 
+Location: Line 330
+Analysis: In method expand(Range range, int lowerbound,int upperbound), the call to the getLength() of the range object was removed, this would cause the calculation for the lower bound to be inaccurate and could affect the result for the output of the method. The testRangeExpandNegative method accounts for this by using negative values and finding the error in the calculation.
+Mutant #8 - testCombinedNull
+Mutation: less Than to greater than or equal
+Location: Line 190
+Analysis: in the method constrain(double value), the < sine was changed to >=. This would have caused the method to ignore that the value may be less than the Range object and would have caused the method to return the value that is less than the range and could have caused problems with negative numbers in particular. This was caught by setting the value to -50 and calling the method as an instance of a range object with range of (-1.0,1.0).
+Mutant #9 - testClosestSmallValue
+Mutation: Incremented (a++) double local variable number 1
+Location: Line 188
+Analysis: In this test, it checks if the double variable had been increased by 1 and if that affects the output which does affect the output as that results in input being within the range and resulting in the out being returned without being changed and thus failing the tests
+Mutant #10 - shiftZeroCrossing
+Mutation: Substituted 0.0 with 1.0 
+Location: Line 387
+Analysis: This test ensures that when the zero crossing is substituted with 1.0, that the test fails as the example range should not be changed due to the delta being 0 but as the delta changes, this results in the shift changing
+
 
 # Report all the statistics and the mutation score for each test class
-
-
+Data Utilities Methods Updated
+![image](https://raw.githubusercontent.com/seng438-winter-2022/seng438-a4-Harsh-S7/main/media/afterDU.png?token=GHSAT0AAAAAABQ3WOISGEGN5ITYLGAZAYWAYRVLKEQ)
+Equal
+Explanation - This method, TestEqualTrue, was aimed to catch a mutant where a return statement was changed from (b==null) to true. The equal(double[][] a, double[][] b) method is meant to compare 2 double arrays and see if they have the same values and lengths. The Mutation would have caused the method to return true even when a is null and b isn’t. The Test EqualTrue method checked this by making a=null but b={{1},{1}} and thus finding the error.
+CalculateRowTotal
+Explanation - This methodm, RowTotTNm,  was aimed to catch a mutant where an if Condition was changed from n != null to true. The calculateRowTotal(Values2D data, int row, int[] validCols) method is meant to find the total of all indexes found in validCols and in the specified row of data. The Mutation would have caused the method to return count the null values within the calculation. The test RowTotTN method checked this by making the last value in row 0 a null value and thus finding the error.
+Range Methods Updated
+![image](https://raw.githubusercontent.com/seng438-winter-2022/seng438-a4-Harsh-S7/main/media/afterR.png?token=GHSAT0AAAAAABQ3WOISWUPT6G6ENBJQOLJ6YRVLLLA)
+Shift
+Explanation - This method, was added to check if the conditional statment was removed and if the conditional statement was negated, how that would affect the method and the class. This method checks if the returned value was replaced with null for org/jfree/data/Range::shift and if it was it kills the mutation.
+Constrain
+Explanation - Within constrain, there is a multitude of ways that mutation can affect the program as local variables can be increased by 1 and this increase changes constrain function and thus to address these local variable change mutations, test cacses were created to address when the local variables were incremneted or decremented.
+CombineIgnoringNaN
+Explanation - For combineIgnoringNan, there were multiple test methods that were created in order to ensure there was enoguh coverage, as combine ignoring Nan had a lot of mutation that survived despite the previous tests. There were tests created where the 
+Intersects
+Explanation - Within intersect, there can be different ways to pass the intersecting Range to the method and there is a test case added which passes a range that is not allowed and this addresses the negational condition which should be addressed if the mutation was created by the pittest and should return false but if it returns true, the test fails
 
 # Analysis drawn on the effectiveness of each of the test classes
 Once we had added the above stated test cases, the figures below show how much the mutation coverages improved by, data utilities went to 90% and range went to 79%.
