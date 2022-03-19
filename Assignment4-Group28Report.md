@@ -23,17 +23,20 @@
 Once we had added the above stated test cases, the figures below show how much the mutation coverages improved by, data utilities went to 90% and range went to 79%.
 Data Utilities
 Before
-
+![image](https://raw.githubusercontent.com/seng438-winter-2022/seng438-a4-Harsh-S7/main/media/beforeDU.png?token=GHSAT0AAAAAABQ3WOITA6PL4TXXGE7UQRXKYRVLLSA)
 
 After
-
+![image](https://raw.githubusercontent.com/seng438-winter-2022/seng438-a4-Harsh-S7/main/media/afterDU.png?token=GHSAT0AAAAAABQ3WOISGEGN5ITYLGAZAYWAYRVLKEQ)
 
 Explanation
 Although the mutation coverage improved by 31% much higher than the required amount of 10%, we can see that there were still 68 mutations that had survived which should be removed in the next iteration.
+
 Range
 Before
+![image](https://raw.githubusercontent.com/seng438-winter-2022/seng438-a4-Harsh-S7/main/media/beforeR.png?token=GHSAT0AAAAAABQ3WOIT4BGUALBHT6Y4H35OYRVLLYQ)
 
 After
+![image](https://raw.githubusercontent.com/seng438-winter-2022/seng438-a4-Harsh-S7/main/media/afterR.png?token=GHSAT0AAAAAABQ3WOISWUPT6G6ENBJQOLJ6YRVLLLA)
 
 Explanation
 The mutation coverage for the Range class was 69% before any changes and after the necessary changes had been implemented, the class went to 79% meeting the threshold of 10% but there were still 263 mutations that had survived.
